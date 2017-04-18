@@ -29,9 +29,9 @@ improvements
 
 The cosine similarity distribution is the distribution of the dot product (i.e.
 cosine of the angle) between to random unit vectors. Note that it is already
-provided by Nengo as `nengo.dists.CosineSimilarity`. Derivations of this and
+provided by Nengo as ``nengo.dists.CosineSimilarity``. Derivations of this and
 related distributions can be found in [3]_, [4]_, and [5]_  In particular, [5]_
-shows that sampling from `CosineSimilarity(d+2` is equivalent to sampling
+shows that sampling from ``CosineSimilarity(d+2)`` is equivalent to sampling
 coordinates from the uniform *d*-ball.
 
 .. [1] TOOD
@@ -43,8 +43,8 @@ coordinates from the uniform *d*-ball.
 Proposal
 ========
 
-Change the default intercept distribution from `nengo.dists.Uniform(-1., 1.)`
-to `nengo.dists.CosineSimilarity(d+2)`.
+Change the default intercept distribution from ``nengo.dists.Uniform(-1., 1.)``
+to ``nengo.dists.CosineSimilarity(d+2)``.
 
 Details
 =======
