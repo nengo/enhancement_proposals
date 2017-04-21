@@ -1,5 +1,5 @@
 ***********************************************************************
-NEP-000: Change default intercept distribution to CosineSimilarity(d+2)
+NEP-001: Change default intercept distribution to CosineSimilarity(d+2)
 ***********************************************************************
 
 =================  ==================================
@@ -31,13 +31,13 @@ improvements
 The cosine similarity distribution is the distribution of the dot product (i.e.
 cosine of the angle) between to random unit vectors. Note that it is already
 provided by Nengo as ``nengo.dists.CosineSimilarity``. Derivations of this and
-related distributions can be found in [4]_, [5]_, and [6]_  In particular, [6]_
+related distributions can be found in [4]_, [5]_, and [6]_. In particular, [6]_
 shows that sampling from ``CosineSimilarity(d+2)`` is equivalent to sampling
 coordinates from the uniform *d*-ball.
 
-.. [1] TOOD
+.. [1] `Gosmann, J. (2017) “The influence of the intercept distribution on representation in the NEF” <https://github.com/ctn-waterloo/internal_tech_reports/blob/master/The%20influence%20of%20the%20intercept%20distribution%20on%20representation%20in%20the%20NEF.ipynb>`_
 .. [2] `Gosmann, J. (2016) “Precise multiplications with the NEF” <https://github.com/ctn-archive/technical-reports/blob/master/Precise-multiplications-with-the-NEF.ipynb>`_
-.. [3] `Improved accuracy in higher dimensions with alternate intercept distribution <https://github.com/nengo/nengo_extras/issues/34>`_
+.. [3] `nengo/nengo_extras#34: Improved accuracy in higher dimensions with alternate intercept distribution <https://github.com/nengo/nengo_extras/issues/34>`_
 .. [4] `Gosmann, J. & Eliasmith, C. (2016) “Optimizing Semantic Pointer Representations for Symbol-Like Processing in Spiking Neural Networks” <http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0149928>`_
 .. [5] `Gosmann, J. (2015) “The Mathematics of High-Dimensional Representations in the NEF” <https://www.researchgate.net/publication/315829562_The_Mathematics_of_High-Dimensional_Representations_in_the_NEF>`_
 .. [6] `Voelker, A. R., Gosmann, J. & Stewart, T. C. (2017) “Efficiently sampling vectors and coordinates from the n-sphere and n-ball” <https://www.researchgate.net/publication/312056739_Efficiently_sampling_vectors_and_coordinates_from_the_n-sphere_and_n-ball>`_
@@ -53,14 +53,15 @@ Details
 
 The best intercept distribution depends on a number of factors like neuron
 type, solver regularization, synapse, and more.
-``CosineSimilarity(d+2)`` is not the best performing distribution in most
-cases, but it is an improvement over the broadest range of parameters. It leads
-to an improvement for short and long synaptic time constants as well as for
+``CosineSimilarity(d+2)`` is not necessarily the best performing distribution in
+all cases, but it is an improvement compared to the uniform distribution over
+the broadest range of parameters. It leads
+to an improvement with short and long synaptic time constants, as well as for
 spiking and rate neurons given other parameters are at their default values.
 The ``CosineSimilarity(d+2)`` intercept distribution will give worse performance
 for rate neurons if the solver regularization is reduced, but as this already
 requires to adjust a default parameter for optimal performance, it might be
-tolerable to have to parameters that require adjustment.
+tolerable to have two parameters that require adjustment.
 
 Another reason that makes ``CosineSimilarity(d+2)`` a good candidate for the
 default intercept distribution is that it reduces to a uniform distribution for
@@ -123,7 +124,7 @@ Deferrables
 Deferrables have been proposed and extensively discussed in
 `nengo/nengo#995 <https://github.com/nengo/nengo/pull/995>`_. They provide a
 mechanism to defer the final assignment of parameters in Nengo until build
-time. At the time it was decided (probably for good reasons) to not implement
+time. At the time it was decided (for good reasons) to not implement
 deferrables.
 `This comment <https://github.com/nengo/nengo/pull/995#issuecomment-237948076>`_
 tries to give a summary of the discussion, but note that several of the points
